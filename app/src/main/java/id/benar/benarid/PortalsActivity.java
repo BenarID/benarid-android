@@ -5,8 +5,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import id.benar.benarid.models.Portal;
 
 public class PortalsActivity extends AppCompatActivity {
 
@@ -25,12 +31,12 @@ public class PortalsActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        String[] dataset = new String[5];
-        dataset[0] = "Detik";
-        dataset[1] = "Kompas";
-        dataset[2] = "CNN Indonesia";
-        dataset[3] = "Metrotvnews";
-        dataset[4] = "BBC Indonesia";
+        List<Portal> dataset = new ArrayList<>();
+        dataset.add(new Portal("", "Detik", "http://detik.com"));
+        dataset.add(new Portal("", "Kompas", "http://kompas.com"));
+        dataset.add(new Portal("", "CNN Indonesia", "http://cnnindonesia.com"));
+        dataset.add(new Portal("", "Metrotvnews", "http://metrotvnews.com"));
+        dataset.add(new Portal("", "BBC Indonesia", "http://bbc.com/indonesia"));
 
         mAdapter = new PortalsListAdapter(dataset);
         mRecyclerView.setAdapter(mAdapter);
@@ -39,36 +45,39 @@ public class PortalsActivity extends AppCompatActivity {
 }
 
 class PortalsListAdapter extends RecyclerView.Adapter<PortalsListAdapter.ViewHolder> {
-    private String[] mDataset;
+    private List<Portal> mDataset;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView mTextTitle;
+        private TextView mTextSubtitle;
 
-        public ViewHolder(TextView v) {
+        private ViewHolder(View v) {
             super(v);
-            mTextView = v;
+            mTextTitle = (TextView) v.findViewById(R.id.list_item_portal_title);
+            mTextSubtitle = (TextView) v.findViewById(R.id.list_item_portal_subtitle);
         }
     }
 
-    public PortalsListAdapter(String[] dataset) {
+    PortalsListAdapter(List<Portal> dataset) {
         mDataset = dataset;
     }
 
     @Override
     public PortalsListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_portal, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText(mDataset[position]);
+        Portal portal = mDataset.get(position);
+        holder.mTextTitle.setText(portal.getName());
+        holder.mTextSubtitle.setText(portal.getSiteUrl());
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }

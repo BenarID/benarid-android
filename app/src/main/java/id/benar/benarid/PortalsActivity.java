@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,17 +48,6 @@ public class PortalsActivity extends AppCompatActivity {
 class PortalsListAdapter extends RecyclerView.Adapter<PortalsListAdapter.ViewHolder> {
     private List<Portal> mDataset;
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTextTitle;
-        private TextView mTextSubtitle;
-
-        private ViewHolder(View v) {
-            super(v);
-            mTextTitle = (TextView) v.findViewById(R.id.list_item_portal_title);
-            mTextSubtitle = (TextView) v.findViewById(R.id.list_item_portal_subtitle);
-        }
-    }
-
     PortalsListAdapter(List<Portal> dataset) {
         mDataset = dataset;
     }
@@ -72,12 +62,27 @@ class PortalsListAdapter extends RecyclerView.Adapter<PortalsListAdapter.ViewHol
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Portal portal = mDataset.get(position);
-        holder.mTextTitle.setText(portal.getName());
-        holder.mTextSubtitle.setText(portal.getSiteUrl());
+        holder.bindPortal(portal);
     }
 
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView mTextTitle;
+        private TextView mTextSubtitle;
+
+        private ViewHolder(View v) {
+            super(v);
+            mTextTitle = (TextView) v.findViewById(R.id.list_item_portal_title);
+            mTextSubtitle = (TextView) v.findViewById(R.id.list_item_portal_subtitle);
+        }
+
+        private void bindPortal(Portal portal) {
+            mTextTitle.setText(portal.getName());
+            mTextSubtitle.setText(portal.getSiteUrl());
+        }
     }
 }

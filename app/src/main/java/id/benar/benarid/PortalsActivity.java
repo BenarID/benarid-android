@@ -43,6 +43,15 @@ public class PortalsActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mAdapter.getItemCount() == 0) {
+            // TODO: init portals load
+            Log.d("RecyclerView", "Should load.");
+        }
+    }
+
 }
 
 class PortalsListAdapter extends RecyclerView.Adapter<PortalsListAdapter.ViewHolder> {

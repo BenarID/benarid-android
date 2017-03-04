@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildTypes.each { type ->
+        type.buildConfigField 'String', 'BENARID_API_HOST', '"' + benaridApiHost + '"' ?: '"Define API host"'
+    }
 }
 
 dependencies {

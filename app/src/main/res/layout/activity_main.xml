@@ -64,7 +64,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:layout_below="@+id/urlButton"
-        android:id="@+id/browseButton"
+        android:id="@+id/button_portals_browse"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
 
     <TextView

@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final EditText textInput = (EditText) findViewById(R.id.urlInput);
-        final Button urlButton = (Button) findViewById(R.id.urlButton);
+        final EditText textInput = (EditText) findViewById(R.id.input_text_url);
+        final Button urlButton = (Button) findViewById(R.id.button_url);
         Button browsePortalsButton = (Button) findViewById(R.id.button_portals_browse);
 
         textInput.addTextChangedListener(new TextWatcher() {

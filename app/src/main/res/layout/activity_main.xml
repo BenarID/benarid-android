@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/urlInput"
+        android:layout_above="@+id/input_text_url"
         android:textSize="18sp"
         android:layout_marginTop="18dp"
         android:layout_marginBottom="28dp"
@@ -45,16 +45,16 @@
         android:layout_height="wrap_content"
         android:inputType="textUri"
         android:layout_centerVertical="true"
-        android:id="@+id/urlInput"
+        android:id="@+id/input_text_url"
         android:hint="http://news.detik.com/url/menuju/artikel"/>
 
     <Button
         android:text="Cek Artikel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/urlInput"
+        android:layout_below="@+id/input_text_url"
         android:layout_centerHorizontal="true"
-        android:id="@+id/urlButton"
+        android:id="@+id/button_url"
         style="@style/Widget.AppCompat.Button.Colored"/>
 
     <Button
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:layout_below="@+id/urlButton"
+        android:layout_below="@+id/button_url"
         android:id="@+id/button_portals_browse"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
 

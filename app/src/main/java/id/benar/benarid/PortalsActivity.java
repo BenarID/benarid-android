@@ -14,6 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.benar.benarid.models.Portal;
+import id.benar.benarid.network.APIService;
+import id.benar.benarid.network.APIServiceFactory;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PortalsActivity extends AppCompatActivity {
 
@@ -33,11 +38,6 @@ public class PortalsActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         List<Portal> dataset = new ArrayList<>();
-        dataset.add(new Portal("", "Detik", "http://detik.com"));
-        dataset.add(new Portal("", "Kompas", "http://kompas.com"));
-        dataset.add(new Portal("", "CNN Indonesia", "http://cnnindonesia.com"));
-        dataset.add(new Portal("", "Metrotvnews", "http://metrotvnews.com"));
-        dataset.add(new Portal("", "BBC Indonesia", "http://bbc.com/indonesia"));
 
         mAdapter = new PortalsListAdapter(dataset);
         mRecyclerView.setAdapter(mAdapter);
@@ -47,9 +47,34 @@ public class PortalsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (mAdapter.getItemCount() == 0) {
-            // TODO: init portals load
-            Log.d("RecyclerView", "Should load.");
+            Log.d("PortalsActivity", "No portals. Loading...");
+            loadPortals();
         }
+    }
+
+    private void loadPortals() {
+        APIService service = APIServiceFactory.getInstance();
+        service.getPortals().enqueue(new Callback<List<Portal>>() {
+            @Override
+            public void onResponse(Call<List<Portal>> call, Response<List<Portal>> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("loadPortals", "Code: " + response.code() + ", Message: " + response.message());
+                    return;
+                }
+
+                List<Portal> portals = response.body();
+                Log.d("loadPortals", portals.toString());
+
+                mAdapter = new PortalsListAdapter(portals);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Portal>> call, Throwable t) {
+                Log.e("loadPortals", "Failed");
+                t.printStackTrace();
+            }
+        });
     }
 
 }

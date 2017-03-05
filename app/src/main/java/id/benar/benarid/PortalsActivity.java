@@ -112,6 +112,13 @@ class PortalsListAdapter extends RecyclerView.Adapter<PortalsListAdapter.ViewHol
             super(v);
             mTextTitle = (TextView) v.findViewById(R.id.list_item_portal_title);
             mTextSubtitle = (TextView) v.findViewById(R.id.list_item_portal_subtitle);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("PortalsActivity", "Clicked " +
+                            ((TextView) v.findViewById(R.id.list_item_portal_title)).getText());
+                }
+            });
         }
 
         private void bindPortal(Portal portal) {
